@@ -315,8 +315,8 @@ function pomodoro() {
   const pauseBtn = document.getElementById('pauseBtn');
   const resetBtn = document.getElementById('resetBtn');
 
-  let minute = 1;
-  let second = 0;
+  let minute = 0;
+  let second = 10;
   let timer = null;
 
   function showTime() {
@@ -338,34 +338,48 @@ function pomodoro() {
   //  if(second >)
 
 
-
   startBtn.addEventListener('click', () => {
-    if (timer) {
+    
+    if(timer){
       return
     }
+    
     timer = setInterval(() => {
       if (minute === 0 && second === 0) {
-        timer = null;
+        clearInterval(timer);
+        timer = null
+        alert('Session Completed')
       }
-      else if (second === 0 || second < 0) {
+      else if (second === 0 ) {
         minute--
         second = 59
         console.log(minute)
         console.log(second)
+        showTime()
       }
       else {
         second--
+        showTime()
         console.log(second)
       }
-
+      
     }, 1000);
   })
+  
 
   pauseBtn.addEventListener('click',()=>{
     clearInterval(timer);
     timer = null
   })
 
+  resetBtn.addEventListener('click',()=>{
+    console.log()
+    minute = 0;
+    second = 10;
+    clearInterval(timer)
+    timer = null
+    showTime()
+  })
 
 }
 
