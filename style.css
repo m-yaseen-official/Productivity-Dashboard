@@ -855,6 +855,9 @@ input {
   stroke-linecap: round;
   stroke-dasharray: 565.5;
   stroke-dashoffset: 140;
+  transform-origin: center;
+  transition: stroke-dashoffset .3s linear;
+ 
 }
 
 .pomodoro-ring__time {

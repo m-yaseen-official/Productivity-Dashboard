@@ -314,15 +314,29 @@ function pomodoro() {
   const startBtn = document.getElementById('startBtn');
   const pauseBtn = document.getElementById('pauseBtn');
   const resetBtn = document.getElementById('resetBtn');
+  const progressCircle = document.querySelector(".pomodoro-ring__progress");
+  
+  const radius = 90;
+  const circumference = (2 * Math.PI * radius);
+  const defaultMinute = 25;
+  const defaultSecond = 0;
 
-  let minute = 0;
-  let second = 10;
+  let minute = defaultMinute;
+  let second = defaultSecond;
+
+const totalSecond = defaultMinute * 60 + defaultSecond;
+  
   let timer = null;
-
+  
+  
+  showTime()
+  updateRing()
+  
+  
   function showTime() {
     let m = minute;
     let s = second;
-
+    
     if (m < 10) {
       m = `0${m}`
     }
@@ -333,11 +347,12 @@ function pomodoro() {
 
     timerDisplay.textContent = `${m}:${s}`
   }
-
-  showTime()
-  //  if(second >)
-
-
+function updateRing(){
+  const currentSeconds = minute * 60 + second
+    const progress = currentSeconds / totalSecond
+    const offset = circumference * (1- progress);
+    progressCircle.style.strokeDashoffset = offset;
+}
   startBtn.addEventListener('click', () => {
     
     if(timer){
@@ -345,22 +360,27 @@ function pomodoro() {
     }
     
     timer = setInterval(() => {
-      if (minute === 0 && second === 0) {
-        clearInterval(timer);
-        timer = null
-        alert('Session Completed')
-      }
-      else if (second === 0 ) {
-        minute--
-        second = 59
-        console.log(minute)
-        console.log(second)
-        showTime()
+
+      // showTime()
+    
+  if (minute === 0 && second === 0) {
+    showTime()
+    updateRing()
+    clearInterval(timer);
+    timer = null
+    alert('Session Completed')
+
+  }
+  else if (second === 0 ) {
+    minute--
+    second = 59
+    showTime()
+    updateRing()
       }
       else {
         second--
         showTime()
-        console.log(second)
+        updateRing()
       }
       
     }, 1000);
@@ -374,11 +394,12 @@ function pomodoro() {
 
   resetBtn.addEventListener('click',()=>{
     console.log()
-    minute = 0;
-    second = 10;
+    minute = 25;
+    second = 0;
     clearInterval(timer)
     timer = null
     showTime()
+    updateRing()
   })
 
 }
