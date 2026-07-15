@@ -100,8 +100,6 @@ async function getWeather(cityInput = "", city = "karachi") {
   }
 }
 
-getQuote()
-getWeather();
 
 searchBtn.addEventListener('click', () => {
   const cityInput = document.getElementById('city-input');
@@ -232,7 +230,6 @@ todoFilterBtns.forEach(button => {
 
 });
 
-renderTasks(tasks);
 
 function renderTasks(data = tasks) {
   console.log(data)
@@ -404,4 +401,12 @@ function updateRing(){
 
 }
 
+function goals(){
+
+}
+
+renderTasks(tasks);
 pomodoro()
+goals()
+getQuote()
+getWeather();
